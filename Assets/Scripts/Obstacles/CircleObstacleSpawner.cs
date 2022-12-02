@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleObstacleSpawner : MonoBehaviour
+namespace SkinColorRunner.Obstacles
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CircleObstacleSpawner : MonoBehaviour
     {
-        
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
