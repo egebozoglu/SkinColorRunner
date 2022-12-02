@@ -18,18 +18,21 @@ namespace SkinColorRunner.Obstacles
         [SerializeField] private List<GameObject> sticks = new();
         #endregion
 
-        // Update is called once per frame
-        void Update()
+        void Start()
         {
-
+            StartCoroutine(ChangeColors());
         }
-        
 
         private IEnumerator ChangeColors()
         {
-            yield return new WaitForSeconds(1.5f);
+            while (true)
+            {
+                yield return new WaitForSeconds(.1f);
 
-            // continue
+                // first reorder material list and set sticks' colors again
+                ReorderMaterials();
+                SetColors();
+            }
         }
 
         private void SetColors()
@@ -39,6 +42,19 @@ namespace SkinColorRunner.Obstacles
                 MeshRenderer stickRenderer = sticks[i].GetComponent<MeshRenderer>();
                 stickRenderer.material = materials[i];
             }
+        }
+
+        private void ReorderMaterials()
+        {
+            List<Material> newMaterials = new();
+
+            for (int i = 1; i < materials.Count; i++)
+            {
+                newMaterials.Add(materials[i]);
+            }
+            newMaterials.Add(materials[0]);
+
+            materials = newMaterials;
         }
     }
 }
