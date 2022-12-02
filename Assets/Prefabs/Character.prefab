@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 6082755101302561695}
   - component: {fileID: 1749733009692796848}
   - component: {fileID: 7807536032634008818}
+  - component: {fileID: 5866666019871173668}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -181,13 +182,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:RightFoot'\n\tTransform
-    'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftHand'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:Spine2'\n\tTransform 'mixamorig:RightUpLeg'\n\tTransform
-    'mixamorig:LeftHandIndex3'\n\tTransform 'mixamorig:RightForeArm'\n\tand more
-    ...\n\tFrom animation clip 'running_animation'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -221,6 +216,19 @@ CapsuleCollider:
   m_Height: 2.1079926
   m_Direction: 1
   m_Center: {x: 0, y: 1.0660036, z: 0.100000024}
+--- !u!114 &5866666019871173668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703043065469213535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf85e6bba7e143038f8af462aeb09c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &723305603467836581
 GameObject:
   m_ObjectHideFlags: 0
