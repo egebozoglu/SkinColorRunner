@@ -27,25 +27,23 @@ namespace SkinColorRunner.Player
 
         private void Movement()
         {
-            Rotation();
-            rb.MovePosition(transform.position + (Time.deltaTime * movingSpeed * Vector3.forward));
-        }
-
-        private void Rotation()
-        {
             var horizontal = joystick.Horizontal;
 
-            if (horizontal<0)
+            if (horizontal < 0)
             {
-                horizontal = -1;
+                horizontal = -1f;
             }
-            else if(horizontal>0)
+            else if (horizontal > 0)
             {
-                horizontal = 1;
+                horizontal = 1f;
             }
 
+            // rotation
             Quaternion targetRotation = Quaternion.Euler(0f, 45f * horizontal, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.1f);
+
+            // position
+            rb.MovePosition(transform.position + (Time.deltaTime * movingSpeed * (Vector3.forward + Vector3.right * horizontal/2f)));
         }
     }
 }
