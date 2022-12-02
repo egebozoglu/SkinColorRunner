@@ -19,8 +19,7 @@ namespace SkinColorRunner.Player
             animator.SetTrigger("Running");
         }
 
-        // Update is called once per frame
-        void Update()
+        private void FixedUpdate()
         {
             Movement();
         }
