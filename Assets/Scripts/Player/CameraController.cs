@@ -7,7 +7,7 @@ namespace SkinColorRunner.Player
     public class CameraController : MonoBehaviour
     {
         public GameObject player;
-        private float offsetZ = -5f;
+        private float offsetZ = -7f;
 
         private void Update()
         {
