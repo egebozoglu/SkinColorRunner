@@ -27,7 +27,7 @@ namespace SkinColorRunner.Obstacles
         {
             while (true)
             {
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(.2f);
 
                 // first reorder material list and set sticks' colors again
                 ReorderMaterials();
