@@ -16,10 +16,6 @@ namespace SkinColorRunner.Obstacles
         [Header("Sticks")]
         [Space(3)]
         [SerializeField] private List<GameObject> sticks = new();
-
-        // properties
-        private readonly int groupAmount = 3;
-        private int groupIndex = 2;
         #endregion
 
         // Update is called once per frame
@@ -27,21 +23,21 @@ namespace SkinColorRunner.Obstacles
         {
 
         }
+        
 
         private IEnumerator ChangeColors()
         {
             yield return new WaitForSeconds(1.5f);
 
-            groupIndex -= groupAmount;
+            // continue
+        }
 
+        private void SetColors()
+        {
             for (int i = 0; i < sticks.Count; i++)
             {
-                if (groupIndex<0)
-                {
-                    groupIndex = sticks.Count + groupIndex;
-                }
-
-
+                MeshRenderer stickRenderer = sticks[i].GetComponent<MeshRenderer>();
+                stickRenderer.material = materials[i];
             }
         }
     }
