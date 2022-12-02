@@ -6,16 +6,28 @@ namespace SkinColorRunner.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        #region Variables
+        [SerializeField] private float speed = 5f;
+        private Rigidbody rb;
+        private Animator animator;
+        #endregion
 
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
+            animator.SetTrigger("Running");
         }
 
         // Update is called once per frame
         void Update()
         {
+            Movement();
+        }
 
+        private void Movement()
+        {
+            rb.MovePosition(transform.position + (Time.deltaTime * speed * Vector3.forward));
         }
     }
 }
