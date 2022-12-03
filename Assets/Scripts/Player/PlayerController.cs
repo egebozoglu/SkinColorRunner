@@ -18,10 +18,12 @@ namespace SkinColorRunner.Player
         private Material playerMaterial;
 
         // movement properties
+        private bool gameActive = false;
         private bool moveActive = true;
         private readonly float limitPosX = 2f;
 
         // hit wrong material properties
+        private bool movingBack = false;
         private readonly float moveBackPosZ = 3f;
         private Vector3 moveBackTargetPosition;
 
@@ -32,13 +34,14 @@ namespace SkinColorRunner.Player
             rb = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             playerMaterial = playerSkinnedMeshRenderer.material;
+
+            GameManager.GameStart += GameStart;
         }
 
         private void FixedUpdate()
         {
-            if (GameManager.Instance.GameStarted)
+            if (gameActive)
             {
-                animator.SetTrigger("Running");
                 if (moveActive)
                 {
                     Movement();
@@ -48,6 +51,12 @@ namespace SkinColorRunner.Player
                     HitWrongMaterial();
                 }
             }
+        }
+
+        private void GameStart()
+        {
+            animator.SetTrigger("Running");
+            gameActive = true;
         }
 
         /// <summary>
@@ -102,9 +111,13 @@ namespace SkinColorRunner.Player
             }
             else
             {
-                moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
-                moveActive = false;
-                animator.SetTrigger("Wrong");
+                if (!movingBack)
+                {
+                    moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
+                    animator.SetTrigger("Wrong");
+                    moveActive = false;
+                    movingBack = true;
+                }
             }
         }
 
@@ -115,6 +128,7 @@ namespace SkinColorRunner.Player
         {
             if (transform.position.z <= moveBackTargetPosition.z)
             {
+                movingBack = false;
                 moveActive = true;
                 animator.SetTrigger("Running");
                 return;
