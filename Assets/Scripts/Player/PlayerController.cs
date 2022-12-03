@@ -11,11 +11,19 @@ namespace SkinColorRunner.Player
         [SerializeField] private float movingSpeed = 5f;
         [SerializeField] private SkinnedMeshRenderer playerSkinnedMeshRenderer;
 
-        // properties
+        // general properties
         private Rigidbody rb;
         private Animator animator;
         private Material playerMaterial;
+
+        // movement properties
+        private bool moveActive = true;
         private readonly float limitPosX = 2f;
+
+        // hit wrong material properties
+        private readonly float moveBackPosZ = 3f;
+        private Vector3 moveBackTargetPosition;
+
         #endregion
 
         private void Awake()
@@ -28,10 +36,19 @@ namespace SkinColorRunner.Player
 
         private void FixedUpdate()
         {
-            Movement();
+            if (moveActive)
+            {
+                Movement();
+            }
+            else
+            {
+                HitWrongMaterial();
+            }
         }
 
-        // move with joystick
+        /// <summary>
+        /// Player Movement, limit horizontal movement according to limitPosX, rotate with horizontal joystick input
+        /// </summary>
         private void Movement()
         {
             var horizontal = joystick.Horizontal;
@@ -81,8 +98,25 @@ namespace SkinColorRunner.Player
             }
             else
             {
-                Debug.Log("Different Material");
+                moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
+                moveActive = false;
+                animator.SetTrigger("Wrong");
             }
+        }
+
+        /// <summary>
+        /// Call when the player collided with different material
+        /// </summary>
+        private void HitWrongMaterial()
+        {
+            if (transform.position.z <= moveBackTargetPosition.z)
+            {
+                moveActive = true;
+                animator.SetTrigger("Running");
+                return;
+            }
+            // move back
+            transform.Translate(movingSpeed * Time.deltaTime * -Vector3.forward);
         }
     }
 }
