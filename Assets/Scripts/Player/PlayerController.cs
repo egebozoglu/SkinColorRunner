@@ -9,8 +9,11 @@ namespace SkinColorRunner.Player
         #region Variables
         [SerializeField] private DynamicJoystick joystick;
         [SerializeField] private float movingSpeed = 5f;
+
+        // properties
         private Rigidbody rb;
         private Animator animator;
+        private readonly float limitPosX = 2f;
         #endregion
 
         private void Awake()
@@ -38,12 +41,30 @@ namespace SkinColorRunner.Player
                 horizontal = 1f;
             }
 
+            Vector3 horizontalTarget = 0.5f * horizontal * Vector3.right; // horizontal move
+
+            // limit horizontal move
+            if ((transform.position.x >= limitPosX && horizontalTarget.x > 0) || (transform.position.x <= -limitPosX && horizontalTarget.x < 0))
+            {
+                horizontalTarget = Vector3.zero;
+            }
+
             // rotation
-            Quaternion targetRotation = Quaternion.Euler(0f, 45f * horizontal, 0f);
+            Quaternion targetRotation;
+
+            if (horizontalTarget!=Vector3.zero)
+            {
+                targetRotation = Quaternion.Euler(0f, 45f * horizontal, 0f);
+            }
+            else
+            {
+                targetRotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.1f);
 
             // position
-            rb.MovePosition(transform.position + (Time.deltaTime * movingSpeed * (Vector3.forward + Vector3.right * horizontal/2f)));
+            rb.MovePosition(transform.position + (Time.deltaTime * movingSpeed * (Vector3.forward + horizontalTarget)));
         }
     }
 }
