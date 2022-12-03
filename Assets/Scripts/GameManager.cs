@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SkinColorRunner.Manager
 {
     public class GameManager : MonoBehaviour
     {
+        #region Variables
         public static GameManager Instance;
         public bool GameStarted { get; private set; } // reach that from player controller
 
@@ -23,8 +25,16 @@ namespace SkinColorRunner.Manager
         [SerializeField] private GameObject startPanel;
         [SerializeField] private GameObject gamePanel;
 
+        [Space(5)]
+
+        [Header("Text")]
+        [Space(3)]
+        [SerializeField] private TextMeshProUGUI timeText;
+
+        // timer variables
         private int timerSecond = 0;
         private float timerRate = 0f;
+        #endregion
 
         private void Awake()
         {
@@ -74,8 +84,9 @@ namespace SkinColorRunner.Manager
             {
                 timerRate = 0f;
                 timerSecond++;
-                Debug.Log(timerSecond);
             }
+
+            timeText.text = timerSecond.ToString();
         }
     }
 }
