@@ -9,10 +9,12 @@ namespace SkinColorRunner.Player
         #region Variables
         [SerializeField] private DynamicJoystick joystick;
         [SerializeField] private float movingSpeed = 5f;
+        [SerializeField] private SkinnedMeshRenderer playerSkinnedMeshRenderer;
 
         // properties
         private Rigidbody rb;
         private Animator animator;
+        private Material playerMaterial;
         private readonly float limitPosX = 2f;
         #endregion
 
@@ -21,6 +23,7 @@ namespace SkinColorRunner.Player
             rb = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             animator.SetTrigger("Running");
+            playerMaterial = playerSkinnedMeshRenderer.material;
         }
 
         private void FixedUpdate()
@@ -28,6 +31,7 @@ namespace SkinColorRunner.Player
             Movement();
         }
 
+        // move with joystick
         private void Movement()
         {
             var horizontal = joystick.Horizontal;
@@ -65,6 +69,20 @@ namespace SkinColorRunner.Player
 
             // position
             rb.MovePosition(transform.position + (Time.deltaTime * movingSpeed * (Vector3.forward + horizontalTarget)));
+        }
+
+        // handle trigger collision
+        private void OnTriggerEnter(Collider other)
+        {
+            MeshRenderer renderer = other.gameObject.GetComponent<MeshRenderer>();
+            if (renderer.material.name == playerMaterial.name)
+            {
+                Debug.Log("Same Material");
+            }
+            else
+            {
+                Debug.Log("Different Material");
+            }
         }
     }
 }
