@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace SkinColorRunner.Manager
 {
@@ -11,7 +12,10 @@ namespace SkinColorRunner.Manager
     {
         #region Variables
         public static GameManager Instance;
-        public bool GameStarted { get; private set; } // reach that from player controller
+        private bool gameStarted = false;
+
+        // events
+        public static event Action GameStart;
 
         [Header("Buttons")]
         [Space(3)]
@@ -44,14 +48,14 @@ namespace SkinColorRunner.Manager
         // Start is called before the first frame update
         void Start()
         {
-            GameStarted = false;
+            gameStarted = false;
             SetButtonListeners();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (GameStarted)
+            if (gameStarted)
             {
                 Timer();
             }
@@ -66,9 +70,11 @@ namespace SkinColorRunner.Manager
 
         private void StartClick()
         {
-            GameStarted = true;
+            gameStarted = true;
             startPanel.SetActive(false);
             gamePanel.SetActive(true);
+
+            GameStart?.Invoke();
         }
 
         private void RestartClick()
