@@ -113,6 +113,7 @@ namespace SkinColorRunner.Player
             {
                 if (!movingBack)
                 {
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
                     animator.SetTrigger("Wrong");
                     moveActive = false;
