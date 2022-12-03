@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SkinColorRunner.Manager;
 using UnityEngine;
 
 namespace SkinColorRunner.Player
@@ -30,19 +31,22 @@ namespace SkinColorRunner.Player
         {
             rb = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
-            animator.SetTrigger("Running");
             playerMaterial = playerSkinnedMeshRenderer.material;
         }
 
         private void FixedUpdate()
         {
-            if (moveActive)
+            if (GameManager.Instance.GameStarted)
             {
-                Movement();
-            }
-            else
-            {
-                HitWrongMaterial();
+                animator.SetTrigger("Running");
+                if (moveActive)
+                {
+                    Movement();
+                }
+                else
+                {
+                    HitWrongMaterial();
+                }
             }
         }
 
