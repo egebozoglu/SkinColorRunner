@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2970691294168373513}
   m_Layer: 0
   m_Name: RightDoor
-  m_TagString: Door
+  m_TagString: Door1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 2970691295474671219}
   m_Layer: 0
   m_Name: LeftDoor
-  m_TagString: Door
+  m_TagString: Door0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
