@@ -108,7 +108,17 @@ namespace SkinColorRunner.Player
         {
             MeshRenderer renderer = other.gameObject.GetComponent<MeshRenderer>();
             string tag = other.gameObject.tag;
-            if (!tag.Contains("Door"))
+            if (tag.Contains("Door"))
+            {
+                int doorIndex = int.Parse(tag[^1].ToString());
+                playerSkinnedMeshRenderer.material = materials[doorIndex];
+                playerMaterial = playerSkinnedMeshRenderer.material;
+            }
+            else if (tag == "FinishLine")
+            {
+                Debug.Log("Finish");
+            }
+            else
             {
                 if (renderer.material.name == playerMaterial.name)
                 {
@@ -125,12 +135,6 @@ namespace SkinColorRunner.Player
                         movingBack = true;
                     }
                 }
-            }
-            else
-            {
-                int doorIndex = int.Parse(tag[^1].ToString());
-                playerSkinnedMeshRenderer.material = materials[doorIndex];
-                playerMaterial = playerSkinnedMeshRenderer.material;
             }
         }
 
