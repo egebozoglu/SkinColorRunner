@@ -50,6 +50,15 @@ namespace SkinColorRunner.Manager
         // timer variables
         private int timerSecond = 0;
         private float timerRate = 0f;
+
+        // level generation
+        private int objectPosZ = 10;
+        private readonly int objectDistance = 10;
+        private readonly int objectInARow = 2;
+        private readonly int sectionAmount = 5;
+        private readonly int objectPerSection = 3;
+        private int objectCounter = 0;
+        private Vector3 objectPosition = new(0f, 0.1f, 0f);
         #endregion
 
         private void Awake()
@@ -62,16 +71,45 @@ namespace SkinColorRunner.Manager
         {
             gameStarted = false;
             SetButtonListeners();
+            GenerateLevel();
         }
 
-        // Update is called once per frame
-        void Update()
+        #region Level Generator
+        private void GenerateLevel()
         {
-            if (gameStarted)
+            InstantiateObject(doorPrefab);
+
+            for (int i = 0; i < sectionAmount; i++)
             {
-                Timer();
+                for (int j = 0; j < objectPerSection; j++)
+                {
+                    if (objectCounter != objectInARow)
+                    {
+                        System.Random rand = new();
+                        int randIndex = rand.Next(obstacles.Count);
+                        InstantiateObject(obstacles[randIndex]);
+                        objectCounter++;
+                    }
+                    else
+                    {
+                        if (i != sectionAmount - 1)
+                        {
+                            InstantiateObject(doorPrefab);
+                        }
+
+                        objectCounter = 0;
+                    }
+                }
             }
         }
+
+        private void InstantiateObject(GameObject gameObject)
+        {
+            Vector3 position = objectPosition + Vector3.forward * objectPosZ;
+            Instantiate(gameObject, position, Quaternion.identity);
+            objectPosZ += objectDistance;
+        }
+        #endregion
 
         #region Button Click Listeners
         private void SetButtonListeners()
@@ -94,6 +132,15 @@ namespace SkinColorRunner.Manager
             SceneManager.LoadScene("GameScene");
         }
         #endregion
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (gameStarted)
+            {
+                Timer();
+            }
+        }
 
         private void Timer()
         {
