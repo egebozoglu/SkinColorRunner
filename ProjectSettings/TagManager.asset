@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Water
   - Door
+  - Door0
+  - Door1
   layers:
   - Default
   - TransparentFX
