@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using SkinColorRunner.Manager;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace SkinColorRunner.Player
         [SerializeField] private DynamicJoystick joystick;
         [SerializeField] private float movingSpeed = 5f;
         [SerializeField] private SkinnedMeshRenderer playerSkinnedMeshRenderer;
+        [SerializeField] private List<Material> materials = new();
 
         // general properties
         private Rigidbody rb;
@@ -105,20 +107,30 @@ namespace SkinColorRunner.Player
         private void OnTriggerEnter(Collider other)
         {
             MeshRenderer renderer = other.gameObject.GetComponent<MeshRenderer>();
-            if (renderer.material.name == playerMaterial.name)
+            string tag = other.gameObject.tag;
+            if (!tag.Contains("Door"))
             {
-                Debug.Log("Same Material");
+                if (renderer.material.name == playerMaterial.name)
+                {
+                    Debug.Log("Same Material");
+                }
+                else
+                {
+                    if (!movingBack)
+                    {
+                        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                        moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
+                        animator.SetTrigger("Wrong");
+                        moveActive = false;
+                        movingBack = true;
+                    }
+                }
             }
             else
             {
-                if (!movingBack)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
-                    animator.SetTrigger("Wrong");
-                    moveActive = false;
-                    movingBack = true;
-                }
+                int doorIndex = int.Parse(tag[^1].ToString());
+                playerSkinnedMeshRenderer.material = materials[doorIndex];
+                playerMaterial = playerSkinnedMeshRenderer.material;
             }
         }
 
