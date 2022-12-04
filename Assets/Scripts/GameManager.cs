@@ -35,6 +35,18 @@ namespace SkinColorRunner.Manager
         [Space(3)]
         [SerializeField] private TextMeshProUGUI timeText;
 
+        [Space(5)]
+
+        [Header("Obstacles")]
+        [Space(3)]
+        [SerializeField] private List<GameObject> obstacles = new();
+
+        [Space(5)]
+
+        [Header("Door")]
+        [Space(3)]
+        [SerializeField] private GameObject doorPrefab;
+
         // timer variables
         private int timerSecond = 0;
         private float timerRate = 0f;
