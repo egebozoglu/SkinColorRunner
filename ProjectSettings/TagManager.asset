@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Door0
   - Door1
+  - FinishLine
   layers:
   - Default
   - TransparentFX
