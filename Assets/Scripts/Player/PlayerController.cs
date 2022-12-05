@@ -13,6 +13,7 @@ namespace SkinColorRunner.Player
         [SerializeField] private float movingSpeed = 5f;
         [SerializeField] private SkinnedMeshRenderer playerSkinnedMeshRenderer;
         [SerializeField] private List<Material> materials = new();
+        [SerializeField] private GameObject smokePrefab;
 
         // general properties
         private Rigidbody rb;
@@ -128,6 +129,7 @@ namespace SkinColorRunner.Player
                 {
                     if (!movingBack)
                     {
+                        InstantiateSmoke();
                         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                         moveBackTargetPosition = transform.position - Vector3.forward * moveBackPosZ;
                         animator.SetTrigger("Wrong");
@@ -152,6 +154,13 @@ namespace SkinColorRunner.Player
             }
             // move back
             transform.Translate(movingSpeed * Time.deltaTime * -Vector3.forward);
+        }
+
+        private void InstantiateSmoke()
+        {
+            GameObject smoke = Instantiate(smokePrefab, transform.position - Vector3.forward, Quaternion.Euler(Vector3.up * 90f));
+
+            Destroy(smoke, 1f);
         }
     }
 }
