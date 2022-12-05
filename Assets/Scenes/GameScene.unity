@@ -3374,6 +3374,8 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 8ba371aa63edf4fa58dae18a5abca591, type: 2}
   - {fileID: 2100000, guid: ded6a7074dd36429aad99fcf371f382e, type: 2}
+  smokePrefab: {fileID: 271445907293737137, guid: 414d1d76d7c02407f93e600a7cf1121b,
+    type: 3}
 --- !u!4 &6110471694080512652
 Transform:
   m_ObjectHideFlags: 0
