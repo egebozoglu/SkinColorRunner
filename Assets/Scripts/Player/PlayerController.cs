@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace SkinColorRunner.Player
         [SerializeField] private SkinnedMeshRenderer playerSkinnedMeshRenderer;
         [SerializeField] private List<Material> materials = new();
         [SerializeField] private GameObject smokePrefab;
+
+        // event
+        public static event Action GameEnd;
 
         // general properties
         private Rigidbody rb;
@@ -121,6 +125,7 @@ namespace SkinColorRunner.Player
                 other.gameObject.SetActive(false);
                 gameActive = false;
                 animator.SetTrigger("Dancing");
+                GameEnd?.Invoke();
             }
             else
             {
