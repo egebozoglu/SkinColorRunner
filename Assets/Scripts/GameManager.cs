@@ -35,7 +35,8 @@ namespace SkinColorRunner.Manager
 
         [Header("Text")]
         [Space(3)]
-        [SerializeField] private TextMeshProUGUI timeText;
+        [SerializeField] private TextMeshProUGUI timeText; // gamepanel
+        [SerializeField] private TextMeshProUGUI endTimeText; // endpanel
 
         [Space(5)]
 
@@ -85,6 +86,8 @@ namespace SkinColorRunner.Manager
 
         private IEnumerator GameEndCoroutine()
         {
+            gameStarted = false;
+            endTimeText.text = timerSecond.ToString();
             yield return new WaitForSeconds(2f);
 
             endPanel.SetActive(true);
