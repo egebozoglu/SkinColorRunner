@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using SkinColorRunner.Player;
 
 namespace SkinColorRunner.Manager
 {
@@ -28,6 +29,7 @@ namespace SkinColorRunner.Manager
         [Space(3)]
         [SerializeField] private GameObject startPanel;
         [SerializeField] private GameObject gamePanel;
+        [SerializeField] private GameObject endPanel;
 
         [Space(5)]
 
@@ -72,6 +74,21 @@ namespace SkinColorRunner.Manager
             gameStarted = false;
             SetButtonListeners();
             GenerateLevel();
+            PlayerController.GameEnd += GameEnd;
+        }
+
+        private void GameEnd()
+        {
+            // activate end panel after a certain seconds
+            StartCoroutine(GameEndCoroutine());
+        }
+
+        private IEnumerator GameEndCoroutine()
+        {
+            yield return new WaitForSeconds(2f);
+
+            endPanel.SetActive(true);
+            // set panel's variables like time
         }
 
         #region Level Generator
