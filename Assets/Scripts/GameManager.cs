@@ -67,6 +67,12 @@ namespace SkinColorRunner.Manager
         private void Awake()
         {
             Instance = this;
+
+#if UNITY_EDITOR
+            Debug.unityLogger.logEnabled = true;
+#else
+            Debug.unityLogger.logEnabled = false;
+#endif
         }
 
         // Start is called before the first frame update
@@ -90,11 +96,11 @@ namespace SkinColorRunner.Manager
             endTimeText.text = timerSecond.ToString();
             yield return new WaitForSeconds(2f);
 
+            gamePanel.SetActive(false);
             endPanel.SetActive(true);
-            // set panel's variables like time
         }
 
-        #region Level Generator
+#region Level Generator
         private void GenerateLevel()
         {
             InstantiateObject(doorPrefab);
@@ -129,9 +135,9 @@ namespace SkinColorRunner.Manager
             Instantiate(gameObject, position, Quaternion.identity);
             objectPosZ += objectDistance;
         }
-        #endregion
+#endregion
 
-        #region Button Click Listeners
+#region Button Click Listeners
         private void SetButtonListeners()
         {
             startButton.onClick.AddListener(StartClick);
@@ -151,7 +157,7 @@ namespace SkinColorRunner.Manager
         {
             SceneManager.LoadScene("GameScene");
         }
-        #endregion
+#endregion
 
         // Update is called once per frame
         void Update()
