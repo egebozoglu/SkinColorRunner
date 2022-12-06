@@ -50,6 +50,12 @@ namespace SkinColorRunner.Manager
         [Space(3)]
         [SerializeField] private GameObject doorPrefab;
 
+        [Space(5)]
+
+        [Header("Audio")]
+        [Space(3)]
+        [SerializeField] private AudioSource audioSource;
+
         // timer variables
         private int timerSecond = 0;
         private float timerRate = 0f;
@@ -92,6 +98,7 @@ namespace SkinColorRunner.Manager
 
         private IEnumerator GameEndCoroutine()
         {
+            audioSource.Play();
             gameStarted = false;
             endTimeText.text = timerSecond.ToString();
             yield return new WaitForSeconds(2f);
