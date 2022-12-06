@@ -118,6 +118,9 @@ namespace SkinColorRunner.Player
             else if (tag == "FinishLine")
             {
                 Debug.Log("Finish");
+                other.gameObject.SetActive(false);
+                gameActive = false;
+                animator.SetTrigger("Dancing");
             }
             else
             {
@@ -158,7 +161,7 @@ namespace SkinColorRunner.Player
 
         private void InstantiateSmoke()
         {
-            GameObject smoke = Instantiate(smokePrefab, transform.position - Vector3.forward, Quaternion.Euler(Vector3.up * 90f));
+            GameObject smoke = Instantiate(smokePrefab, transform.position, Quaternion.identity);
 
             Destroy(smoke, 1f);
         }
